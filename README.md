@@ -1,50 +1,159 @@
-# GeoExplore AI
+# GeoExplore AI 🌍
+### AI-Powered Geological Exploration & Geochemical Prospectivity Analysis
 
-A full-stack exploratory geochemical prospectivity dashboard built with React, Leaflet, Recharts, FastAPI, Pandas and scikit-learn.
+GeoExplore AI is a full-stack geological exploration platform designed to analyze geochemical datasets, visualize geological observations and identify potentially interesting exploration zones using machine learning and geospatial visualization.
 
-## Requirements
-- Node.js 20+ and npm
+The platform combines interactive mapping, geochemical data analysis and machine learning to help users explore geological datasets through an intuitive dashboard.
+
+## 🚀 Key Features
+
+- **Interactive Geological Map:** Visualize geological sampling locations using geographic coordinates.
+- **Geochemical Data Analysis:** Analyze copper, zinc, iron and magnetic measurements.
+- **CSV Dataset Upload:** Upload custom geological datasets for analysis.
+- **Machine Learning:** Random Forest classification when sufficient labeled observations are available.
+- **Anomaly Scoring:** Generate relative geochemical anomaly rankings when labeled data is insufficient.
+- **Data Visualization:** Explore geochemical patterns through interactive charts.
+- **Dataset Management:** Inspect geological observations and export analysis results.
+
+## 🛠️ Technology Stack
+
+| Component | Technologies |
+|---|---|
+| Frontend | React.js, JavaScript, CSS |
+| Backend | Python, FastAPI |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-learn, Random Forest |
+| Visualization | Leaflet, Recharts |
+| API | REST API |
+
+## 🏗️ Project Architecture
+
+```text
+GeoExplore-AI/
+│
+├── backend/
+│   ├── main.py
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── main.jsx
+│   │   └── style.css
+│   ├── index.html
+│   ├── package.json
+│   └── package-lock.json
+│
+├── .gitignore
+└── README.md
+```
+
+## ⚙️ Installation and Setup
+
+### Prerequisites
+
 - Python 3.10+
+- Node.js 20+
+- npm
+- Git
 
-## Run backend (Windows PowerShell)
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Akhil-4868/GeoExplore-AI.git
+cd GeoExplore-AI
+```
+
+### 2. Setup the backend
+
 ```powershell
 cd backend
 py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
-If PowerShell blocks activation, run `.\.venv\Scripts\python.exe -m pip install -r requirements.txt` and `.\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000` instead.
 
-## Run frontend (second terminal)
+Start the backend:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000
+```
+
+Backend API:
+http://localhost:8000
+
+API documentation:
+http://localhost:8000/docs
+
+### 3. Setup the frontend
+
+Open a second terminal:
+
 ```powershell
 cd frontend
 npm install
 npm run dev
 ```
-Open http://localhost:5173 . API docs: http://localhost:8000/docs .
 
-## Input CSV columns
-Required: `latitude,longitude,copper_ppm,zinc_ppm,iron_pct,magnetic_nt`
-Optional: `target` (binary 0/1, 1 denotes a known positive class). With >=30 labeled rows and >=8 per class, the API trains a random forest and reports holdout accuracy. Otherwise it computes a relative rank-based anomaly score, **not** mineral probability.
+Frontend:
+http://localhost:5173
 
-Use **Load sample dataset** to test the full pipeline without files. Sample observations and labels are SYNTHETIC.
+## 📊 Dataset Format
 
-## Limitations
-- This is a working MVP, not a validated mineral discovery system.
-- CSVs are processed in memory; no database or accounts in this version.
-- Model trained on uploaded labeled data is not persisted.
-- Random train/test split may overestimate performance on spatially correlated geology data; use spatial cross-validation for research use.
-- The heuristic ranking assumes higher concentrations correspond to higher interest, which is not universally geologically valid.
-- Do not use these results for operational exploration decisions without field validation.
+The platform accepts CSV datasets containing the following columns:
 
-## GitHub
-Create an empty repository on GitHub named `geoexplore-ai` (do not pre-add README), then from the project root:
-```bash
-git init -b main
-git add .
-git commit -m "Initial GeoExplore AI MVP"
-git remote add origin https://github.com/YOUR_USERNAME/geoexplore-ai.git
-git push -u origin main
-```
-Never commit credentials, tokens, private datasets or `.env` files.
+| Column | Description |
+|---|---|
+| latitude | Geographic latitude |
+| longitude | Geographic longitude |
+| copper_ppm | Copper concentration |
+| zinc_ppm | Zinc concentration |
+| iron_pct | Iron percentage |
+| magnetic_nt | Magnetic measurement |
+| target | Optional binary target label |
+
+The optional `target` column represents known positive and negative classes.
+
+When sufficient labeled observations are available, the application trains a Random Forest classifier and evaluates it using a holdout dataset.
+
+Otherwise, a relative rank-based anomaly score is calculated.
+
+## 🧠 Machine Learning Approach
+
+The platform uses two analysis approaches:
+
+1. **Supervised Learning:** Random Forest classification using labeled geochemical observations.
+2. **Unsupervised-style Ranking:** A relative geochemical anomaly scoring approach when sufficient labeled data is unavailable.
+
+These outputs are exploratory indicators and should not be interpreted as validated mineral deposit probabilities.
+
+## ⚠️ Limitations
+
+- The application is an exploratory MVP, not a validated mineral discovery system.
+- Sample observations and labels are synthetic.
+- Uploaded datasets are processed in memory.
+- Models are not persisted between sessions.
+- Spatially correlated observations can cause optimistic evaluation results.
+- Geological interpretations require domain expertise and field validation.
+
+## 🔮 Future Improvements
+
+- PostgreSQL and PostGIS integration.
+- User authentication and project management.
+- Integration of real public geological datasets.
+- Advanced spatial machine learning.
+- 3D geological modelling.
+- Remote sensing and satellite data integration.
+- Automated geological report generation.
+
+## 👨‍💻 Author
+
+**Akhil**
+
+Integrated M.Tech – Applied Geology
+
+IIT (ISM) Dhanbad
+
+GitHub: https://github.com/Akhil-4868
+
+---
+
+*GeoExplore AI is developed as an interdisciplinary project combining geology, geospatial analysis, machine learning and full-stack software engineering.*
